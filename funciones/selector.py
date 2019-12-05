@@ -42,4 +42,18 @@ def select(string):
                 st += Registers[inst[1]]
                 st += '00000'
                 st += Rdic[inst[0]]
+        elif inst[0] in Idic:
+                st = Idic[inst[0]]
+                st += Registers[inst[2]]
+                st += Registers[inst[1]]
+                if inst[3][0] == "–":
+                        aux = inst[3][1:]
+                        print(aux)
+                else:
+                        aux = inst[3]
+                b = int(aux)
+                print(b)
+                a = str('{0:016b}'.format(b))
+                print(a)
+                st += a
         return st

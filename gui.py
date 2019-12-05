@@ -2,6 +2,8 @@
 # -*- coding: utf-8 -*-
 
 import tkinter as tk
+import tkinter.filedialog
+from tkinter import messagebox
 from tkinter import ttk
 from tkinter import *
 from math import *
@@ -62,9 +64,17 @@ def convert():
         hexa = BinToHex(st)
         Consola.insert(INSERT, hexa +'\n')
 
+def export():
+    ventana.filename = tkinter.filedialog.asksaveasfilename(defaultextension='.txt')
+    f = open(ventana.filename, 'w')
+    f.write(Consola.get('1.0', 'end'))
+    f.close()
+    tkinter.messagebox.showinfo('FYI', 'File Saved')
+
+
 Boton=Button(ventana,bd=0,text="Start",bg=color_boton,width=ancho_boton,height=alto_boton, command=convert)
 Boton.grid(column=1,row=1)
-Boton1=Button(ventana,bd=0,text="Export data",bg=color_boton,width=ancho_boton,height=alto_boton)
+Boton1=Button(ventana,bd=0,text="Export data",bg=color_boton,width=ancho_boton,height=alto_boton, command=export)
 Boton1.grid(column=2,row=1)
 
 Consola = Text(ventana)
@@ -73,6 +83,5 @@ Consola.place(x=15,y=430)
 
 Entradaconsola.tag_add("line1","1.0","1.7")
 Consola.tag_add("line2","1.0","1.7")
-
 
 ventana.mainloop()
