@@ -6,6 +6,8 @@ from tkinter import ttk
 from tkinter import *
 from math import *
 
+from funciones.selector import select
+from funciones.BinToHex import BinToHex
 
 ventana=Tk()
 ventana.title("Modulo traductor")
@@ -50,7 +52,17 @@ operador=""
 Entradaconsola= Text(ventana)
 Entradaconsola.config(width=100,height=25)
 Entradaconsola.place(x=30,y=60)
-Boton=Button(ventana,bd=0,text="Start",bg=color_boton,width=ancho_boton,height=alto_boton)
+
+def convert():
+    Consola.delete('1.0', END)
+    s = Entradaconsola.get("1.0",END)
+    inst = list(s.split("\n"))
+    for i in inst:
+        st = select(i)
+        hexa = BinToHex(st)
+        Consola.insert(INSERT, hexa +'\n')
+
+Boton=Button(ventana,bd=0,text="Start",bg=color_boton,width=ancho_boton,height=alto_boton, command=convert)
 Boton.grid(column=1,row=1)
 Boton1=Button(ventana,bd=0,text="Export data",bg=color_boton,width=ancho_boton,height=alto_boton)
 Boton1.grid(column=2,row=1)
@@ -58,9 +70,6 @@ Boton1.grid(column=2,row=1)
 Consola = Text(ventana)
 Consola.config(width=137,height=15)
 Consola.place(x=15,y=430)
-
-#Salida=Entry(ventana,font=('arial',20,'bold'),width=63,textvariable=input_text,bd=5,insertwidth=4,bg="powder blue",justify="left").place(x=20,y=450)
-#Consola= ttk.Entry(width=20).place(x=10,y= 500)
 
 Entradaconsola.tag_add("line1","1.0","1.7")
 Consola.tag_add("line2","1.0","1.7")
