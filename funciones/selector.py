@@ -1,11 +1,15 @@
 #!/usr/bin/env python3
-
+from funciones.complemento_2 import com2
 
 def select(string):
+        flag = 0
         code = ''
         for i in string:
-                if i != ',':
+                if i != ',' and i != '(' and i != ')':
                         code += i
+                if i == '(' or i == ')':
+                        flag = 1
+                        code += ' '
         inst = list(code.split(" "))
         st = ''
 
@@ -42,18 +46,27 @@ def select(string):
                 st += Registers[inst[1]]
                 st += '00000'
                 st += Rdic[inst[0]]
-        elif inst[0] in Idic:
+        elif inst[0] in Idic and flag == 0:
                 st = Idic[inst[0]]
                 st += Registers[inst[2]]
                 st += Registers[inst[1]]
                 if inst[3][0] == "–":
-                        aux = inst[3][1:]
-                        print(aux)
+                        a = inst[3][1:]
+                        a = '{0:016b}'.format(int(a))
+                        aux = com2(a)
                 else:
-                        aux = inst[3]
-                b = int(aux)
-                print(b)
-                a = str('{0:016b}'.format(b))
-                print(a)
-                st += a
+                        a = int(inst[3])
+                        aux = str('{0:016b}'.format(a))
+                st += aux
+        else:
+                st = Idic[inst[0]]
+                st += Registers[inst[3]]
+                st += Registers[inst[1]]
+                if inst[2][0] == "–":
+                        a = inst[2][1:]
+                        a = '{0:016b}'.format(int(a))
+                        aux = com2(a)
+                else:
+                        aux = str('{0:016b}'.format(int(inst[2])))
+                st += aux
         return st
