@@ -1,2 +1,2 @@
 Proyecto desarrollado en python que genera
-codigo ensablador a partir de codigo ensambly
+codigo de maquina a partir de codigo ensamblador

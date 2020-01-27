@@ -11,7 +11,8 @@ def r_type(inst, function):
                      '$s4': '10100', '$s5': '10101', '$s6': '10110', '$s7': '10111',
                      '$t8': '11000', '$t9': '11001', '$k0': '11010', '$k1': '11011',
                      '$gp': '11100', '$sp': '11101', '$fp': '11110', '$ra': '11111'}
-        if inst[0][0] != 's':
+        if inst[0][0] != 's' or inst[0] == 'sub':
+                print('aqui')
                 st = '000000'
                 st += Registers[inst[2]]
                 st += Registers[inst[3]]
